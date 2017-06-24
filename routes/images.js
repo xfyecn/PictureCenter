@@ -91,7 +91,11 @@ router.get('/rescueDB', function(req, res, next) {
 });
 
 router.get('/clearDB', function(req, res, next) {
-  client.set("picInfo", "", function(err, dbres){
+  var picInfo = {
+    arr: [],
+    picCount: 0
+  };
+  client.set("picInfo", JSON.stringify(picInfo), function(err, dbres){
     if(err) {
       res.status(500).send(err);
     } else {

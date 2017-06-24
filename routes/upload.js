@@ -17,10 +17,6 @@ client.on('error', function(err) {
 router.use(fileUpload());
 router.use(bodyParser.json());
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Upload' });
-});
-
 router.post('/', function(req, res) {
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
