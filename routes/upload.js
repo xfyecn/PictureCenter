@@ -7,7 +7,7 @@ const RSVP = require('rsvp');
 const redis = require('redis'),
       client = redis.createClient();
 const router = express.Router();
-const IMG_DIR = '/home/pi/picCenter/public/images/';
+const IMG_DIR = require('./const.js').IMG_DIR;
 
 client.on('error', function(err) {
   console.log('Redis Error: ' + err);

@@ -6,7 +6,7 @@ var rimraf = require('rimraf');
 const redis = require('redis'),
       client = redis.createClient();
 const router = express.Router();
-const IMG_DIR = '/home/pi/picCenter/public/images/';
+const IMG_DIR = require('./const.js').IMG_DIR;
 
 client.on('error', function(err) {
   console.log('Redis Error: ' + err);
@@ -62,16 +62,15 @@ router.get('/rescueDB', function(req, res, next) {
   fs.readdirSync(IMG_DIR).forEach(folder => {
     console.log('Image save folder: ' + folder);
     fs.readdirSync(IMG_DIR + folder + '/').forEach(file => {
-      console.log('Image file: ' + file);
       var thumbnailname = file.split('.jpg')[0] + '_thumbnail.jpeg';
-      if(file.indexOf('thumbnail.jpeg') == -1) {
+      if(file.indexOf('.jpg') !== -1) {
         picInfo.arr.push({
           uuid: uuidV1(),
           filename: file,
-          filepath: '/home/pi/picCenter/public/images/' + folder + '/' + file,
+          filepath: IMG_DIR + folder + '/' + file,
           fileurl: '/images/' + folder + '/' + file,
           thumbnailname: thumbnailname,
-          thumbnailpath: '/home/pi/picCenter/public/images/' + folder + '/' + thumbnailname,
+          thumbnailpath: IMG_DIR + folder + '/' + thumbnailname,
           thumbnailurl: '/images/' + folder + '/' + thumbnailname
         });
         picCount++;
@@ -102,9 +101,9 @@ router.get('/clearDB', function(req, res, next) {
 });
 
 router.get('/deleteAllImages', function(req, res, next) {
-  rimraf(IMG_DIR, function () {
+  // rimraf(IMG_DIR, function () {
     res.json('done');
-  });
+  // });
 });
 
 module.exports = router;
