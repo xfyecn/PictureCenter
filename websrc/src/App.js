@@ -16,6 +16,7 @@ class App extends Component {
       isOpen: false
     }
     this.handlePageNoChange = this.handlePageNoChange.bind(this)
+    this.handleInputKeyUp = this.handleInputKeyUp.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handlePrevPage = this.handlePrevPage.bind(this)
     this.handleNextPage = this.handleNextPage.bind(this)
@@ -25,7 +26,31 @@ class App extends Component {
   }
 
   handlePageNoChange(event) {
-    this.setState({pageNoShow: (event.target.value)*1})
+    let value = event.target.value
+    value = value.replace(/[^0-9]/ig,'')
+    this.setState({pageNoShow: (value)*1})
+  }
+
+  handleInputKeyUp(event) {
+    switch(event.key) {
+      case 'Enter':
+        this.handleSearch()
+        break
+      case 'ArrowRight':
+        this.handleNextPage()
+        break
+      case 'ArrowDown':
+        this.handleNextPage()
+        break
+      case 'ArrowLeft':
+        this.handlePrevPage()
+        break
+      case 'ArrowUp':
+        this.handlePrevPage()
+        break
+      default:
+        break
+    }
   }
 
   handleSearch() {
@@ -96,7 +121,7 @@ class App extends Component {
         <div style={{textAlign:'center'}}>
           <button type="button" onClick={this.handleFirstPage} className="myButton">&lt;&lt;</button>
           <button type="button" onClick={this.handlePrevPage} className="myButton">&lt;</button>
-          <input value={this.state.pageNoShow} onChange={this.handlePageNoChange} className="pageNo" />
+          <input value={this.state.pageNoShow} onChange={this.handlePageNoChange} onKeyDown={this.handleInputKeyUp} className="pageNo" />
           <button type="button" onClick={this.handleSearch} className="myButton">Go!</button>
           <button type="button" onClick={this.handleNextPage} className="myButton">&gt;</button>
           <button type="button" onClick={this.handleLastPage} className="myButton">&gt;&gt;</button>
@@ -105,7 +130,7 @@ class App extends Component {
         <div style={{textAlign:'center'}}>
           <button type="button" onClick={this.handleFirstPage} className="myButton">&lt;&lt;</button>
           <button type="button" onClick={this.handlePrevPage} className="myButton">&lt;</button>
-          <input value={this.state.pageNoShow} onChange={this.handlePageNoChange} className="pageNo" />
+          <input value={this.state.pageNoShow} onChange={this.handlePageNoChange} onKeyDown={this.handleInputKeyUp} className="pageNo" />
           <button type="button" onClick={this.handleSearch} className="myButton">Go!</button>
           <button type="button" onClick={this.handleNextPage} className="myButton">&gt;</button>
           <button type="button" onClick={this.handleLastPage} className="myButton">&gt;&gt;</button>
