@@ -1,1 +1,1 @@
-exports.IMG_DIR = '/home/pi/PictureCenter/public/images/';
+exports.IMG_DIR = "/Users/edward/PictureCenter/public/images/";
