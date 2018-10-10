@@ -28,6 +28,8 @@
 4. Set image save path
 
    In /PictureCenter/routes/const.js
+   path must be end with '/', and image should be saved in PictureCenter/public/ folder
+
 
 5. Start app
 
@@ -40,3 +42,11 @@
    ```
 
 6. Open <http://localhost:3000/> to see the app.
+
+Run the app with pm2
+
+   ```shell
+   $ pm2 start app.js
+   $ cd websrc
+   $ pm2 start node_modules/react-scripts/scripts/start.js --name "pic-viewer"
+   ```

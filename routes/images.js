@@ -90,7 +90,7 @@ router.get("/restoreDB", function(_req, res, _next) {
       console.log("Update picInfo status: " + dbres);
       res.json({
         status: 1,
-        message: "rescueDB success"
+        message: "The database was successfully restored"
       });
     })
     .catch(function(error) {
