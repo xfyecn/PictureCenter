@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
+const { join } = require('path');
 const uuidV1 = require("uuid/v1");
 const RSVP = require("rsvp");
 const redis = require("redis"),
@@ -68,10 +69,10 @@ router.post("/", function(req, res) {
   var saveImg = function(file, dir) {
     var promise = new RSVP.Promise(function(resolve, reject) {
       // Use the mv() method to place the file somewhere on your server
-      if (!fs.existsSync(IMG_DIR + dir)) {
-        fs.mkdirSync(IMG_DIR + dir);
+      if (!fs.existsSync(join(IMG_DIR, dir))) {
+        fs.mkdirSync(join(IMG_DIR, dir));
       }
-      file.mv(IMG_DIR + dir + "/" + file.name, handler);
+      file.mv(join(IMG_DIR, dir, file.name), handler);
       function handler(err) {
         if (err) {
           reject(err);
@@ -79,7 +80,7 @@ router.post("/", function(req, res) {
           resolve({
             uuid: uuidV1(),
             filename: file.name,
-            filepath: IMG_DIR + dir + "/" + file.name,
+            filepath: join(IMG_DIR, dir, file.name),
             fileurl: "/images/" + dir + "/" + file.name
           });
         }
@@ -123,9 +124,9 @@ router.post("/", function(req, res) {
             var fnArr = el.filename.split(".");
             fnArr.splice(fnArr.length - 1, 1);
             var fName = fnArr.join("") + "_thumbnail.jpeg";
-            fs.writeFileSync(IMG_DIR + dir + "/" + fName, base64Data, "base64");
+            fs.writeFileSync(join(IMG_DIR, dir, fName), base64Data, "base64");
             el.thumbnailname = fName;
-            el.thumbnailpath = IMG_DIR + dir + "/" + fName;
+            el.thumbnailpath = join(IMG_DIR, dir, fName);
             el.thumbnailurl = "/images/" + dir + "/" + fName;
             if (!picInfo.arr) {
               picInfo.arr = [];

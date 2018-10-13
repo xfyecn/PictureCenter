@@ -1,7 +1,7 @@
 const express = require("express");
 const RSVP = require("rsvp");
 const fs = require("fs");
-const { join } = require('path')
+const { join } = require('path');
 const uuidV1 = require("uuid/v1");
 const rimraf = require("rimraf");
 const redis = require("redis"),
@@ -66,7 +66,7 @@ router.get("/restoreDB", function(_req, res, _next) {
   };
   var picCount = 0;
   getDirectories(IMG_DIR).forEach(folder => {
-    fs.readdirSync(folder + "/").forEach(file => {
+    fs.readdirSync(join(folder, "/")).forEach(file => {
       var tagRegex = /(.*?)\.(?:jpg|gif|png)/;
       var thumbnailname = tagRegex.exec(file) && (tagRegex.exec(file)[1] + "_thumbnail.jpeg");
       const folderRelativePath = folder.split(IMG_DIR)[1];
@@ -74,10 +74,10 @@ router.get("/restoreDB", function(_req, res, _next) {
         picInfo.arr.push({
           uuid: uuidV1(),
           filename: file,
-          filepath: IMG_DIR + folderRelativePath + "/" + file,
+          filepath: join(IMG_DIR, folderRelativePath, file),
           fileurl: "/images/" + folderRelativePath + "/" + file,
           thumbnailname: thumbnailname,
-          thumbnailpath: IMG_DIR + folderRelativePath + "/" + thumbnailname,
+          thumbnailpath: join(IMG_DIR, folderRelativePath, thumbnailname),
           thumbnailurl: "/images/" + folderRelativePath + "/" + thumbnailname
         });
         picCount++;
