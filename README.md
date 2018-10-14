@@ -43,10 +43,10 @@
 
 6. Open <http://localhost:3000/> to see the app.
 
-Run the app with pm2
+## Run the app with pm2
 
    ```shell
-   $ pm2 start app.js
+   $ pm2 start ./bin/www
    $ cd websrc
    $ pm2 start node_modules/react-scripts/scripts/start.js --name "pic-viewer"
    ```
