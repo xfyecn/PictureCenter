@@ -8,8 +8,6 @@ class PicUpload extends Component {
     var base64s = {};
     function readFile() {
       var files = this.files;
-      //input.val("");
-      //console.log(this.files);
       for (var i = 0; i < files.length; i++) {
         if (!/image\/\w+/.test(files[i].type)) {
           alert("Please make sure the file is an image");
@@ -73,12 +71,9 @@ class PicUpload extends Component {
         // Add the file to the request.
         formData.append("photos", file, file.name);
       }
-      // var bay = JSON.stringify(base64s);
-      // console.log(bay);
       for (let i in base64s) {
         formData.append("base64Arr", i + "__baseSplit__" + base64s[i]);
       }
-      // formData.append('base64Arr', bay);
       // Set up the request.
       var xhr = new XMLHttpRequest();
 
@@ -90,6 +85,8 @@ class PicUpload extends Component {
         if (xhr.status === 200) {
           // File(s) uploaded.
           uploadButton.value = "Upload";
+          base64s = {};
+          document.getElementById("container").innerHTML = '';
         } else {
           uploadButton.value = "Upload failed, click to retry";
           console.log("An error occurred!");
@@ -103,7 +100,7 @@ class PicUpload extends Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <form
           ref="uploadForm"
           id="uploadForm"

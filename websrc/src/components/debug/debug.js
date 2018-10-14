@@ -18,6 +18,7 @@ class Debug extends Component {
         .get("/images/restoreDB")
         .then(function(response) {
           alert(response.data.message);
+          this.queryDB();
         })
         .catch(function(error) {
           console.log(error);
@@ -25,7 +26,7 @@ class Debug extends Component {
     }
   }
 
-  componentDidMount() {
+  queryDB() {
     axios
       .get("/images/")
       .then(
@@ -33,6 +34,9 @@ class Debug extends Component {
           if (response.data.arr) {
             this.setState({ list: response.data.arr });
             this.setState({ count: response.data.picCount });
+          } else {
+            this.setState({ list: [] });
+            this.setState({ count: 0 });
           }
         }.bind(this)
       )
@@ -41,17 +45,21 @@ class Debug extends Component {
       });
   }
 
+  componentDidMount() {
+    this.queryDB();
+  }
+
   render() {
     const list = this.state.list;
     const listItems = list.map((item, i) => (
-      <div key={i} class="item">
+      <div key={i} className="item">
         <div>filename: {item.filename}</div>
         <div>filepath: {item.filepath}</div>
         <div>fileurl: {item.fileurl}</div>
       </div>
     ));
     return (
-      <div>
+      <div className="wrapper">
         <div>
           <input
             value="restore database"

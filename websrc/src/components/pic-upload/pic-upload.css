@@ -2,3 +2,8 @@ img{
   vertical-align: middle;
   margin: 5px;
 }
+
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
