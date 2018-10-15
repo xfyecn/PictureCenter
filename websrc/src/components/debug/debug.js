@@ -16,11 +16,11 @@ class Debug extends Component {
     if (window.confirm("Are you sure you want to restore database?")) { 
       axios
         .get("/images/restoreDB")
-        .then(function(response) {
+        .then((response) => {
           alert(response.data.message);
           this.queryDB();
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.log(error);
         });
     }
@@ -30,17 +30,14 @@ class Debug extends Component {
     axios
       .get("/images/")
       .then(
-        function(response) {
+        (response) => {
           if (response.data.arr) {
             this.setState({ list: response.data.arr });
             this.setState({ count: response.data.picCount });
-          } else {
-            this.setState({ list: [] });
-            this.setState({ count: 0 });
           }
-        }.bind(this)
+        }
       )
-      .catch(function(error) {
+      .catch((error) => {
         console.log(error);
       });
   }

@@ -5,8 +5,6 @@ html, body, #root {
 .app {
   height: 100%;
   font-family: 'Comic Sans MS', Helvetica, Arial, sans-serif, cursive;
-  background: #1f1f1f;
-  overflow: scroll;
 }
 
 html, body, div, span, applet, object, iframe,

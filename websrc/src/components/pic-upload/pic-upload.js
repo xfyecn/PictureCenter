@@ -13,6 +13,7 @@ class PicUpload extends Component {
           alert("Please make sure the file is an image");
           return false;
         }
+        // eslint-disable-next-line
         (function(foo) {
           var reader = new FileReader();
           reader.readAsDataURL(files[foo]);
@@ -87,6 +88,16 @@ class PicUpload extends Component {
           uploadButton.value = "Upload";
           base64s = {};
           document.getElementById("container").innerHTML = '';
+          document.getElementById("uploadForm").innerHTML = `<input
+              type="file"
+              id="file_upload"
+              name="sampleFile"
+              accept="image/*"
+              multiple
+            />
+            <input type="submit" id="upload-button" value="Upload" />`;
+          var input = document.getElementById("file_upload");
+          input.addEventListener("change", readFile, false);
         } else {
           uploadButton.value = "Upload failed, click to retry";
           console.log("An error occurred!");

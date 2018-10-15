@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Pagination from "../pagination/pagination";
 import ImgItem from "./pic-item/pic-item";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
@@ -16,72 +17,12 @@ class PicList extends Component {
       photoIndex: 0,
       isOpen: false
     };
-    this.handlePageNoChange = this.handlePageNoChange.bind(this);
-    this.handleInputKeyUp = this.handleInputKeyUp.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handlePrevPage = this.handlePrevPage.bind(this);
-    this.handleNextPage = this.handleNextPage.bind(this);
-    this.handleFirstPage = this.handleFirstPage.bind(this);
-    this.handleLastPage = this.handleLastPage.bind(this);
+    this.handlePagination = this.handlePagination.bind(this);
     this.handler = this.handler.bind(this);
   }
 
-  handlePageNoChange(event) {
-    let value = event.target.value;
-    value = value.replace(/[^0-9]/gi, "");
-    this.setState({ pageNoShow: value * 1 });
-  }
-
-  handleInputKeyUp(event) {
-    switch (event.key) {
-      case "Enter":
-        this.handleSearch();
-        break;
-      case "ArrowRight":
-        this.handleNextPage();
-        break;
-      case "ArrowDown":
-        this.handleNextPage();
-        break;
-      case "ArrowLeft":
-        this.handlePrevPage();
-        break;
-      case "ArrowUp":
-        this.handlePrevPage();
-        break;
-      default:
-        break;
-    }
-  }
-
-  handleSearch() {
-    this.setState({ pageNo: this.state.pageNoShow });
-  }
-
-  handlePrevPage() {
-    if (this.state.pageNo > 1) {
-      this.setState({ pageNoShow: this.state.pageNo - 1 });
-      this.setState({ pageNo: this.state.pageNo - 1 });
-    }
-  }
-
-  handleNextPage() {
-    let totalNum = Math.ceil(this.state.list.length / this.state.pageSize);
-    if (this.state.pageNo < totalNum) {
-      this.setState({ pageNoShow: this.state.pageNo + 1 });
-      this.setState({ pageNo: this.state.pageNo + 1 });
-    }
-  }
-
-  handleFirstPage() {
-    this.setState({ pageNoShow: 1 });
-    this.setState({ pageNo: 1 });
-  }
-
-  handleLastPage() {
-    let totalNum = Math.ceil(this.state.list.length / this.state.pageSize);
-    this.setState({ pageNoShow: totalNum });
-    this.setState({ pageNo: totalNum });
+  handlePagination(value) {
+    this.setState({ pageNo: value });
   }
 
   handler(value) {
@@ -95,13 +36,13 @@ class PicList extends Component {
     axios
       .get("/images/")
       .then(
-        function(response) {
+        (response) => {
           if (response.data.arr) {
             this.setState({ list: response.data.arr });
           }
-        }.bind(this)
+        }
       )
-      .catch(function(error) {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -125,95 +66,19 @@ class PicList extends Component {
     return (
       <div className="pic-list">
         {listItems.length > 0 && (
-          <div style={{ textAlign: "center" }}>
-            <button
-              type="button"
-              onClick={this.handleFirstPage}
-              className="paginationBtn"
-            >
-              &lt;&lt;
-            </button>
-            <button
-              type="button"
-              onClick={this.handlePrevPage}
-              className="paginationBtn"
-            >
-              &lt;
-            </button>
-            <input
-              value={this.state.pageNoShow}
-              onChange={this.handlePageNoChange}
-              onKeyDown={this.handleInputKeyUp}
-              className="pageNo"
-            />
-            <button
-              type="button"
-              onClick={this.handleSearch}
-              className="paginationBtn"
-            >
-              Go!
-            </button>
-            <button
-              type="button"
-              onClick={this.handleNextPage}
-              className="paginationBtn"
-            >
-              &gt;
-            </button>
-            <button
-              type="button"
-              onClick={this.handleLastPage}
-              className="paginationBtn"
-            >
-              &gt;&gt;
-            </button>
-          </div>
+          <Pagination
+            pageSize={this.state.pageSize}
+            totalPages={this.state.list.length}
+            handlePagination={this.handlePagination}
+          />
         )}
         {listItems}
         {listItems.length > 0 && (
-          <div style={{ textAlign: "center" }}>
-            <button
-              type="button"
-              onClick={this.handleFirstPage}
-              className="paginationBtn"
-            >
-              &lt;&lt;
-            </button>
-            <button
-              type="button"
-              onClick={this.handlePrevPage}
-              className="paginationBtn"
-            >
-              &lt;
-            </button>
-            <input
-              value={this.state.pageNoShow}
-              onChange={this.handlePageNoChange}
-              onKeyDown={this.handleInputKeyUp}
-              className="pageNo"
-            />
-            <button
-              type="button"
-              onClick={this.handleSearch}
-              className="paginationBtn"
-            >
-              Go!
-            </button>
-            <button
-              type="button"
-              onClick={this.handleNextPage}
-              className="paginationBtn"
-            >
-              &gt;
-            </button>
-            <button
-              type="button"
-              onClick={this.handleLastPage}
-              className="paginationBtn"
-            >
-              &gt;&gt;
-            </button>
-          </div>
+          <Pagination
+            pageSize={this.state.pageSize}
+            totalPages={this.state.list.length}
+            handlePagination={this.handlePagination}
+          />
         )}
         {isOpen && (
           <Lightbox

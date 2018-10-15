@@ -1,0 +1,13 @@
+li {
+  position: relative;
+  display: inline;
+  padding: 0;
+}
+
+a {
+  padding: 4px 8px 0px 8px;
+  margin-right: 15px;
+  line-height: 38px;
+  font-weight: 700;
+  font-size: 14px;
+}
