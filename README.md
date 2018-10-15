@@ -17,6 +17,8 @@
    $ brew install redis
    ```
 
+   [Install on Windows](https://github.com/MicrosoftArchive/redis/releases)
+
    [Configuring redis](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298)
 
    ```shell
@@ -25,11 +27,10 @@
    OK
    ```
 
-4. Set image save path
+4. Set the image save path
 
-   In /PictureCenter/routes/const.js
-   path must be end with '/', and image should be saved in PictureCenter/public/ folder
-
+   In /PictureCenter/routes/const.js, edit the variable IMG_DIR.
+   Image should be saved in PictureCenter/public/ folder in order to serve as static files in Express.
 
 5. Start app
 
