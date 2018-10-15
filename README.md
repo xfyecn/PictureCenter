@@ -30,7 +30,6 @@
 4. Set the image save path
 
    In /PictureCenter/routes/const.js, edit the variable IMG_DIR.
-   Image should be saved in PictureCenter/public/ folder in order to serve as static files in Express.
 
 5. Start app
 

@@ -75,10 +75,10 @@ router.get("/restoreDB", function(_req, res, _next) {
           uuid: uuidV1(),
           filename: file,
           filepath: join(IMG_DIR, folderRelativePath, file),
-          fileurl: "/images/" + folderRelativePath + "/" + file,
+          fileurl: folderRelativePath + "/" + file,
           thumbnailname: thumbnailname,
           thumbnailpath: join(IMG_DIR, folderRelativePath, thumbnailname),
-          thumbnailurl: "/images/" + folderRelativePath + "/" + thumbnailname
+          thumbnailurl: folderRelativePath + "/" + thumbnailname
         });
         picCount++;
       }

@@ -81,7 +81,7 @@ router.post("/", function(req, res) {
             uuid: uuidV1(),
             filename: file.name,
             filepath: join(IMG_DIR, dir, file.name),
-            fileurl: "/images/" + dir + "/" + file.name
+            fileurl: dir + "/" + file.name
           });
         }
       }
@@ -127,7 +127,7 @@ router.post("/", function(req, res) {
             fs.writeFileSync(join(IMG_DIR, dir, fName), base64Data, "base64");
             el.thumbnailname = fName;
             el.thumbnailpath = join(IMG_DIR, dir, fName);
-            el.thumbnailurl = "/images/" + dir + "/" + fName;
+            el.thumbnailurl = dir + "/" + fName;
             if (!picInfo.arr) {
               picInfo.arr = [];
             }
