@@ -82,7 +82,7 @@ class Pagination extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.state.pageNoShow = nextProps.pageNo;
+    this.setState({ pageNoShow: nextProps.pageNo });
   }
 
   render() {
