@@ -1,20 +1,41 @@
 .pic-list {
-  margin: 0 auto;
   text-align: center;
-  max-width: 900px;
+}
+
+.list-wrapper {
+  background-color: rgba(0, 0, 0, 0.85);
 }
 
 .img-item {
   display: inline-block;
-  max-width: 125px;
   vertical-align: middle;
-  margin: 10px;
   cursor: pointer;
+  width: 12.5%;
+  position: relative;
+}
+
+@media screen and (max-width: 900px) {
+  .img-item {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .img-item {
+    width: 50%;
+  }
 }
 
 .img-item p {
+  color: antiquewhite;
+  width: 100%;
   word-break: break-all;
   word-wrap: break-word;
+  text-overflow: ellipsis;
+  position: absolute;
+  bottom: 0px;
+  background: rgba(0, 0, 0, 0.3);
+  height: 20px;
 }
 
 .img {

@@ -11,9 +11,8 @@ class PicList extends Component {
     super(props);
     this.state = {
       list: [],
-      pageNoShow: 1,
       pageNo: 1,
-      pageSize: 30,
+      pageSize: 40,
       photoIndex: 0,
       isOpen: false
     };
@@ -67,14 +66,16 @@ class PicList extends Component {
       <div className="pic-list">
         {listItems.length > 0 && (
           <Pagination
+            pageNo={this.state.pageNo}
             pageSize={this.state.pageSize}
             totalPages={this.state.list.length}
             handlePagination={this.handlePagination}
           />
         )}
-        {listItems}
+        <div className="list-wrapper">{listItems}</div>
         {listItems.length > 0 && (
           <Pagination
+            pageNo={this.state.pageNo}
             pageSize={this.state.pageSize}
             totalPages={this.state.list.length}
             handlePagination={this.handlePagination}

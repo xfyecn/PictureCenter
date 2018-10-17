@@ -5,7 +5,6 @@ class Pagination extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageNo: 1,
       pageNoShow: 1,
     };
     this.handlePageNoChange = this.handlePageNoChange.bind(this);
@@ -53,38 +52,37 @@ class Pagination extends Component {
   }
 
   handleSearch() {
-    this.setState({ pageNo: this.state.pageNoShow });
     this.handleProp(this.state.pageNoShow);
   }
 
   handlePrevPage() {
-    if (this.state.pageNo > 1) {
-      this.setState({ pageNoShow: this.state.pageNo - 1 });
-      this.setState({ pageNo: this.state.pageNo - 1 });
-      this.handleProp(this.state.pageNo - 1);
+    if (this.props.pageNo > 1) {
+      this.setState({ pageNoShow: this.props.pageNo - 1 });
+      this.handleProp(this.props.pageNo - 1);
     }
   }
 
   handleNextPage() {
     const totalNum = Math.ceil(this.props.totalPages / this.props.pageSize);
-    if (this.state.pageNo < totalNum) {
-      this.setState({ pageNoShow: this.state.pageNo + 1 });
-      this.setState({ pageNo: this.state.pageNo + 1 });
-      this.handleProp(this.state.pageNo + 1);
+    if (this.props.pageNo < totalNum) {
+      this.setState({ pageNoShow: this.props.pageNo + 1 });
+      this.handleProp(this.props.pageNo + 1);
     }
   }
 
   handleFirstPage() {
     this.setState({ pageNoShow: 1 });
-    this.setState({ pageNo: 1 });
     this.handleProp(1);
   }
 
   handleLastPage() {
     const totalNum = Math.ceil(this.props.totalPages / this.props.pageSize);
     this.setState({ pageNoShow: totalNum });
-    this.setState({ pageNo: totalNum });
     this.handleProp(totalNum);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.state.pageNoShow = nextProps.pageNo;
   }
 
   render() {
