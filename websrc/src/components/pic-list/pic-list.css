@@ -29,8 +29,7 @@
 .img-item p {
   color: antiquewhite;
   width: 100%;
-  word-break: break-all;
-  word-wrap: break-word;
+  overflow: hidden;
   text-overflow: ellipsis;
   position: absolute;
   bottom: 0px;
